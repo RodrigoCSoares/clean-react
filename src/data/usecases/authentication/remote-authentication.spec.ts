@@ -1,12 +1,10 @@
-import { mockAccountModel } from './../../../domain/test/mock-account';
-import { AccountModel } from './../../../domain/models/account-model';
-import { Credential } from './../../../domain/usecases/authentication';
-import { UnexpectedError } from './../../../domain/errors/unexpected-error';
-import { HttpStatusCode } from './../../protocols/http/http-response';
-import { InvalidCredentialError } from './../../../domain/errors/invalid-credential-erro';
-import { mockCredential } from '../../../domain/test/mock-account';
+import { HttpPostClientSpy } from '../../test';
+import { AccountModel } from './../../../domain/models';
+import { Credential } from './../../../domain/usecases';
+import { HttpStatusCode } from './../../protocols/http';
 import { RemoteAuthentication } from './remote-authentication';
-import { HttpPostClientSpy } from '../../test/mock-http-client';
+import { mockAccountModel, mockCredential } from './../../../domain/test';
+import { UnexpectedError, InvalidCredentialError } from './../../../domain/errors';
 import faker from 'faker';
 
 type SutTypes = {

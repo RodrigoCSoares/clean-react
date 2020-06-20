@@ -1,5 +1,5 @@
-import { AccountModel } from './../models/account-model';
-import { Credential } from '../usecases/authentication';
+import { AccountModel } from './../models';
+import { Credential } from '../usecases';
 import faker from 'faker';
 
 export const mockCredential = (): Credential => ({

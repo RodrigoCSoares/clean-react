@@ -1,6 +1,4 @@
-import { Credential } from './../../domain/usecases/authentication';
-import { HttpPostClient, HttpPostContent } from '../protocols/http/http-post-client';
-import { HttpResponse, HttpStatusCode } from '../protocols/http/http-response';
+import { HttpPostClient, HttpPostContent, HttpResponse, HttpStatusCode } from '../protocols/http';
 
 export class HttpPostClientSpy<bodyType, responseType> implements HttpPostClient<bodyType, responseType> {
   url?: string;
