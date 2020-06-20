@@ -1,10 +1,9 @@
-import { Credential } from './../../../domain/usecases/authentication';
 import { HttpResponse } from './http-response';
-export type HttpPostContent = {
+export type HttpPostContent<bodyType> = {
   url: string;
-  credential?: Credential;
+  body?: bodyType;
 };
 
-export interface HttpPostClient {
-  post(postContent: HttpPostContent): Promise<HttpResponse>;
+export interface HttpPostClient<bodyType, responseType> {
+  post(postContent: HttpPostContent<bodyType>): Promise<HttpResponse<responseType>>;
 }
