@@ -1,3 +1,5 @@
+import { HttpStatusCode } from './../../protocols/http/http-response';
+import { InvalidCredentialError } from './../../../domain/errors/invalid-credential-erro';
 import { mockCredential } from './../../../domain/test/mock-credential';
 import { RemoteAuthentication } from './remote-authentication';
 import { HttpPostClientSpy } from '../../test/mock-http-client';
@@ -30,5 +32,14 @@ describe('RemoteAuthentication', () => {
     const credential = mockCredential();
     await sut.auth(credential);
     expect(httpPostClientSpy.body).toEqual(credential);
+  });
+
+  test('Should throw invalid credential error if HttpPostClient returns 401', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.unathorized,
+    };
+    const promise = sut.auth(mockCredential());
+    await expect(promise).rejects.toThrow(new InvalidCredentialError());
   });
 });
