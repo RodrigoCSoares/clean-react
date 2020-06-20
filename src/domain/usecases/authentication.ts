@@ -1,6 +1,6 @@
 import { AccountModel } from '../models/account-model';
 
-type Credential = {
+export type Credential = {
   email: string;
   password: string;
 };
