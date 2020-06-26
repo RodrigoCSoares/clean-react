@@ -22,8 +22,7 @@
     }
   },
   "rules": {
-    "react/jsx-usues-react": "error",
-    "react/jsx-usues-var": "error"
+    "react/jsx-uses-react": "error"
     // "@typescript-eslint/consistent-type-definitions": "off",
     // "@typescript-eslint/strict-boolean-expressions": "off",
     // "@typescript-eslint/method-signature-style": "off"
