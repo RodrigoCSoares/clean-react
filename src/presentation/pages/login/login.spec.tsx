@@ -1,19 +1,38 @@
 import React from 'react';
-import { render, RenderResult } from '@testing-library/react';
+import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react';
 import Login from './login';
+import { Validation, ValidationResult } from '@/presentation/pages/protocols/validation';
 
 type SutTypes = {
   sut: RenderResult;
+  validationSpy: ValidationSpy;
 };
 
+class ValidationSpy implements Validation {
+  errorMessage: string;
+  input: unknown;
+
+  validate(input: unknown): ValidationResult {
+    this.input = input;
+    return {
+      errorMessage: this.errorMessage,
+      isValid: false,
+    };
+  }
+}
+
 const makeSut = (): SutTypes => {
-  const sut = render(<Login />);
+  const validationSpy = new ValidationSpy();
+  const sut = render(<Login validation={validationSpy} />);
   return {
     sut,
+    validationSpy,
   };
 };
 
 describe('Login component', () => {
+  afterEach(cleanup);
+
   test('should not render error on start', () => {
     const { queryByRole } = makeSut().sut;
     expect(queryByRole('error-message')).toBeNull();
@@ -36,5 +55,13 @@ describe('Login component', () => {
     const { queryAllByText } = makeSut().sut;
     const requiredFieldsStatusIcon = queryAllByText('🔴');
     expect(requiredFieldsStatusIcon).toHaveLength(2);
+  });
+  test('should call validation with correct email', () => {
+    const { sut, validationSpy } = makeSut();
+    const emailInput = sut.getByPlaceholderText('Digite seu e-mail');
+    fireEvent.input(emailInput, { target: { value: 'any_password' } });
+    expect(validationSpy.input).toEqual({
+      email: 'any_email',
+    });
   });
 });
