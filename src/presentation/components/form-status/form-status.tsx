@@ -4,14 +4,14 @@ import Spinner from '@/presentation/components/spinner/spinner';
 import Context from '@/presentation/contexts/form/form-context';
 
 const Footer: React.FC = () => {
-  const { isLoading, errorMessage } = useContext(Context);
+  const { state, errorState } = useContext(Context);
 
   return (
     <div className={Styles.errorWrap}>
-      {isLoading && <Spinner className={Styles.spinner} />}
-      {errorMessage && (
+      {state.isLoading && <Spinner className={Styles.spinner} />}
+      {errorState.main && (
         <span role="error-message" className={Styles.error}>
-          {errorMessage}
+          {errorState.main}
         </span>
       )}
     </div>
