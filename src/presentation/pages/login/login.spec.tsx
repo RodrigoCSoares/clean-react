@@ -16,4 +16,14 @@ describe('Login component', () => {
     const button = getByText('Entrar') as HTMLButtonElement;
     expect(button.disabled).toBeTruthy();
   });
+  test('required fields status title should be "Campo obrigatório"', () => {
+    const { queryAllByTitle } = render(<Login />);
+    const requiredFieldsStatusIcon = queryAllByTitle('Campo obrigatório');
+    expect(requiredFieldsStatusIcon).toHaveLength(2);
+  });
+  test('required fields status icon should be 🔴', () => {
+    const { queryAllByText } = render(<Login />);
+    const requiredFieldsStatusIcon = queryAllByText('🔴');
+    expect(requiredFieldsStatusIcon).toHaveLength(2);
+  });
 });
